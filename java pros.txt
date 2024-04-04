@@ -1,0 +1,898 @@
+String 
+
+1.Write a program to reverse a word using loop? (Not to use inbuilt functions)
+Sample Input: 
+String: TEMPLE
+Sample Output:
+Reverse String: ELPMET
+
+import java.util.Scanner;
+
+public class ReverseWord {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a word: ");
+        String word = scanner.nextLine();
+
+        String reversedWord = reverseWord(word);
+        System.out.println("Reversed word: " + reversedWord);
+    }
+
+    public static String reverseWord(String word) {
+        StringBuilder reversed = new StringBuilder();
+        for (int i = word.length() - 1; i >= 0; i--) {
+            reversed.append(word.charAt(i));
+        }
+        return reversed.toString();
+    }
+}
+
+
+2.Write a program to convent the given string to integer? 
+Sample Input: 
+String: 1234
+Sample Output:
+Out put String: 1234
+
+import java.util.Scanner;
+
+public class StringToInteger {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a string representing an integer: ");
+        String input = scanner.nextLine();
+
+        try {
+            int number = stringToInteger(input);
+            System.out.println("Converted integer: " + number);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid integer string.");
+        }
+    }
+
+    public static int stringToInteger(String str) throws NumberFormatException {
+        boolean isNegative = false;
+        int index = 0;
+        int result = 0;
+
+        if (str.charAt(0) == '-') {
+            isNegative = true;
+            index = 1;
+        }
+
+        for (int i = index; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c >= '0' && c <= '9') {
+                result = result * 10 + (c - '0');
+            } else {
+                throw new NumberFormatException("Invalid character in the input string.");
+            }
+        }
+
+        return isNegative ? -result : result;
+    }
+}
+
+
+Write a program to check the entered user name is valid or not. Get both the inputs from the user.
+import java.util.Scanner;
+
+public class UsernameValidator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a username: ");
+        String username = scanner.nextLine();
+
+        // Check if the username is valid
+        if (isValidUsername(username)) {
+            System.out.println("Valid username.");
+        } else {
+            System.out.println("Invalid username. Username should contain only alphanumeric characters and underscores, and must start with a letter.");
+        }
+    }
+
+    public static boolean isValidUsername(String username) {
+        // Username should not be empty
+        if (username.isEmpty()) {
+            return false;
+        }
+
+        // Username should start with a letter
+        char firstChar = username.charAt(0);
+        if (!(firstChar >= 'a' && firstChar <= 'z') && !(firstChar >= 'A' && firstChar <= 'Z')) {
+            return false;
+        }
+
+        // Username should contain only alphanumeric characters and underscores
+        for (int i = 1; i < username.length(); i++) {
+            char c = username.charAt(i);
+            if (!(Character.isLetterOrDigit(c) || c == '_')) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+
+3.Write a program that would sort a list of names in alphabetical order Ascending or Descending, choice get from the user?
+Sample Input:
+Banana
+Carrot
+Radish
+Apple
+Jack
+Order(A/D) : A
+Sample Output:
+Apple
+Banana
+Carrot
+Jack
+Radish
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class NameSorter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        List<String> names = new ArrayList<>();
+
+        // Get input from the user
+        System.out.print("Enter the number of names: ");
+        int count = scanner.nextInt();
+        scanner.nextLine(); // Consume newline character
+
+        System.out.println("Enter the names:");
+        for (int i = 0; i < count; i++) {
+            names.add(scanner.nextLine());
+        }
+
+        // Get sorting order from the user
+        System.out.print("Enter sorting order (A for Ascending, D for Descending): ");
+        char sortOrder = scanner.nextLine().toUpperCase().charAt(0);
+
+        // Sort the names based on the user's choice
+        if (sortOrder == 'A') {
+            Collections.sort(names);
+        } else if (sortOrder == 'D') {
+            Collections.sort(names, Collections.reverseOrder());
+        } else {
+            System.out.println("Invalid sorting order. Please enter 'A' for Ascending or 'D' for Descending.");
+            return;
+        }
+
+        // Print the sorted names
+        System.out.println("Sorted names:");
+        for (String name : names) {
+            System.out.println(name);
+        }
+    }
+}
+
+
+4.Write a program to print the special characters separately and print number of Special characters in the line?
+import java.util.Scanner;
+
+public class SpecialCharacterCounter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a line of text: ");
+        String line = scanner.nextLine();
+
+        // Print special characters separately and count them
+        int specialCharCount = 0;
+        System.out.println("Special characters in the line:");
+        for (int i = 0; i < line.length(); i++) {
+            char c = line.charAt(i);
+            if (!Character.isLetterOrDigit(c) && !Character.isWhitespace(c)) {
+                System.out.println(c);
+                specialCharCount++;
+            }
+        }
+
+        // Print the number of special characters
+        System.out.println("Number of special characters: " + specialCharCount);
+    }
+}
+
+
+5.Write a program to print the number of vowels in the given statement?
+import java.util.Scanner;
+
+public class VowelCounter {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a statement: ");
+        String statement = scanner.nextLine();
+
+        // Convert the statement to lowercase for case-insensitive counting
+        statement = statement.toLowerCase();
+
+        // Count the number of vowels
+        int vowelCount = countVowels(statement);
+
+        // Print the result
+        System.out.println("Number of vowels in the statement: " + vowelCount);
+    }
+
+    public static int countVowels(String str) {
+        int count = 0;
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                count++;
+            }
+        }
+        return count;
+    }
+}
+
+Sample Input:
+Saveetha School of Engineering
+Sample Output:
+Number o vowels = 12 
+
+6.Write a program to print consonants and vowels separately in the given word
+import java.util.Scanner;
+
+public class ConsonantVowelSeparator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a word: ");
+        String word = scanner.nextLine();
+
+        // Convert the word to lowercase for case-insensitive separation
+        word = word.toLowerCase();
+
+        // Separate consonants and vowels
+        String consonants = separateConsonants(word);
+        String vowels = separateVowels(word);
+
+        // Print the result
+        System.out.println("Consonants: " + consonants);
+        System.out.println("Vowels: " + vowels);
+    }
+
+    public static String separateConsonants(String word) {
+        StringBuilder consonants = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (c != 'a' && c != 'e' && c != 'i' && c != 'o' && c != 'u' && Character.isLetter(c)) {
+                consonants.append(c);
+            }
+        }
+        return consonants.toString();
+    }
+
+    public static String separateVowels(String word) {
+        StringBuilder vowels = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            char c = word.charAt(i);
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
+                vowels.append(c);
+            }
+        }
+        return vowels.toString();
+    }
+}
+
+Sample Input:
+Given Word: Engineering
+Sample Output:
+Consonants: n g n r n g
+Vowels: e i e ei
+
+7.Write a program that finds whether a given character is present in a string or not. In case it is present it prints the index at which it is present. Do not use built-in find functions to search the character.
+import java.util.Scanner;
+
+public class CharacterFinder {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a string: ");
+        String str = scanner.nextLine();
+
+        System.out.print("Enter a character to search: ");
+        char target = scanner.nextLine().charAt(0);
+
+        // Find the character in the string
+        int index = findCharacter(str, target);
+
+        // Print the result
+        if (index != -1) {
+            System.out.println("Character '" + target + "' found at index " + index);
+        } else {
+            System.out.println("Character '" + target + "' not found in the string.");
+        }
+    }
+
+    public static int findCharacter(String str, char target) {
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == target) {
+                return i; // Return the index if the character is found
+            }
+        }
+        return -1; // Return -1 if the character is not found
+    }
+}
+
+Sample Input:
+	Enter the string: I am a programmer
+	Enter the character to be searched: p
+Sample Output:
+	P is found in string at index: 8
+Note: Check for non available Character in the given statement as Hidden Test case.
+
+8.Write a program to arrange the letters of the word alphabetically in reverse order
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class ReverseAlphabeticalSort {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a word: ");
+        String word = scanner.nextLine();
+
+        // Convert the word to lowercase for case-insensitive sorting
+        word = word.toLowerCase();
+
+        // Convert the word to an array of characters
+        char[] charArray = word.toCharArray();
+
+        // Sort the array in reverse alphabetical order
+        Arrays.sort(charArray);
+        reverseArray(charArray);
+
+        // Convert the sorted array back to a string
+        String sortedWord = new String(charArray);
+
+        // Print the sorted word in reverse alphabetical order
+        System.out.println("Word arranged alphabetically in reverse order: " + sortedWord);
+    }
+
+    public static void reverseArray(char[] arr) {
+        int left = 0;
+        int right = arr.length - 1;
+
+        while (left < right) {
+            char temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+}
+
+Sample Input:
+Enter the word: MOSQUE
+Sample Output:
+Alphabetical Order: U S Q O M E
+Test Case:
+1.HYPOTHECATION
+2.MATRICULATION
+3.MANIPULATION
+
+9.Write a program that accepts a string from user and displays the same string after removing vowels from it.
+import java.util.Scanner;
+
+public class RemoveVowels {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get input from the user
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        // Remove vowels from the input string
+        String result = removeVowels(input);
+
+        // Print the result
+        System.out.println("String after removing vowels: " + result);
+    }
+
+    public static String removeVowels(String str) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
+            if (!isVowel(c)) {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+
+    public static boolean isVowel(char c) {
+        c = Character.toLowerCase(c);
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+}
+
+Sample Input & Output:
+	Enter a string: we can play the game 
+	The string without vowels is: w cn ply thgm
+
+Arrays:
+
+10.Write a program for matrix multiplication?
+import java.util.Scanner;
+
+public class MatrixMultiplication {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Get dimensions of the matrices from the user
+        System.out.print("Enter the number of rows in the first matrix: ");
+        int rowsA = scanner.nextInt();
+        System.out.print("Enter the number of columns in the first matrix: ");
+        int colsA = scanner.nextInt();
+
+        System.out.print("Enter the number of rows in the second matrix: ");
+        int rowsB = scanner.nextInt();
+        System.out.print("Enter the number of columns in the second matrix: ");
+        int colsB = scanner.nextInt();
+
+        // Check if matrix multiplication is possible
+        if (colsA != rowsB) {
+            System.out.println("Matrix multiplication is not possible.");
+            return;
+        }
+
+        // Initialize the matrices
+        int[][] matrixA = new int[rowsA][colsA];
+        int[][] matrixB = new int[rowsB][colsB];
+        int[][] resultMatrix = new int[rowsA][colsB];
+
+        // Get elements of the first matrix from the user
+        System.out.println("Enter elements of the first matrix:");
+        getMatrixElements(scanner, matrixA);
+
+        // Get elements of the second matrix from the user
+        System.out.println("Enter elements of the second matrix:");
+        getMatrixElements(scanner, matrixB);
+
+        // Perform matrix multiplication
+        multiplyMatrices(matrixA, matrixB, resultMatrix);
+
+        // Print the result
+        System.out.println("Resultant matrix after multiplication:");
+        printMatrix(resultMatrix);
+    }
+
+    public static void getMatrixElements(Scanner scanner, int[][] matrix) {
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.print("Enter element at position (" + (i + 1) + "," + (j + 1) + "): ");
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+    }
+
+    public static void multiplyMatrices(int[][] matrixA, int[][] matrixB, int[][] resultMatrix) {
+        int rowsA = matrixA.length;
+        int colsA = matrixA[0].length;
+        int colsB = matrixB[0].length;
+
+        for (int i = 0; i < rowsA; i++) {
+            for (int j = 0; j < colsB; j++) {
+                for (int k = 0; k < colsA; k++) {
+                    resultMatrix[i][j] += matrixA[i][k] * matrixB[k][j];
+                }
+            }
+        }
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int element : row) {
+                System.out.print(element + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+Sample Input:
+Mat1 = 	1  2
+5  3
+Mat2 = 	2   3
+             	4   1
+Sample Output:
+Mat Sum = 10    5
+                    22    18
+
+11.Write a program for matrix addition?
+Sample Input:
+Mat1 = 	1  2
+5  3
+Mat2 = 	2   3
+             	4   1
+Sample Output:
+Mat Sum = 3    5
+9     4
+12.Write a program for Merge two sorted arrays using Array list 
+Input: arr1[] = { 1, 3, 4, 5}, arr2[] = {2, 4, 6, 8} 
+Output: arr3[] = {1, 2, 3, 4, 4, 5, 6, 8}
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class MergeSortedArrays {
+    public static void main(String[] args) {
+        int[] arr1 = {1, 3, 4, 5};
+        int[] arr2 = {2, 4, 6, 8};
+
+        List<Integer> mergedList = mergeSortedArrays(arr1, arr2);
+
+        System.out.println("Merged sorted array: " + mergedList);
+    }
+
+    public static List<Integer> mergeSortedArrays(int[] arr1, int[] arr2) {
+        List<Integer> mergedList = new ArrayList<>();
+
+        int i = 0, j = 0;
+        while (i < arr1.length && j < arr2.length) {
+            if (arr1[i] <= arr2[j]) {
+                mergedList.add(arr1[i]);
+                i++;
+            } else {
+                mergedList.add(arr2[j]);
+                j++;
+            }
+        }
+
+        while (i < arr1.length) {
+            mergedList.add(arr1[i]);
+            i++;
+        }
+
+        while (j < arr2.length) {
+            mergedList.add(arr2[j]);
+            j++;
+        }
+
+        return mergedList;
+    }
+}
+
+
+13.Find the Mean, Median, Mode of the array of numbers?
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ArrayStats {
+    public static void main(String[] args) {
+        int[] numbers = {10, 5, 7, 3, 7, 8, 10, 3, 2, 7};
+
+        double mean = calculateMean(numbers);
+        double median = calculateMedian(numbers);
+        int mode = calculateMode(numbers);
+
+        System.out.println("Mean: " + mean);
+        System.out.println("Median: " + median);
+        System.out.println("Mode: " + mode);
+    }
+
+    public static double calculateMean(int[] numbers) {
+        int sum = 0;
+        for (int num : numbers) {
+            sum += num;
+        }
+        return (double) sum / numbers.length;
+    }
+
+    public static double calculateMedian(int[] numbers) {
+        Arrays.sort(numbers);
+        int middle = numbers.length / 2;
+        if (numbers.length % 2 == 1) {
+            return numbers[middle];
+        } else {
+            return (double) (numbers[middle - 1] + numbers[middle]) / 2;
+        }
+    }
+
+    public static int calculateMode(int[] numbers) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : numbers) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+        int mode = 0;
+        int maxFrequency = 0;
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            int frequency = entry.getValue();
+            if (frequency > maxFrequency) {
+                maxFrequency = frequency;
+                mode = entry.getKey();
+            }
+        }
+        return mode;
+    }
+}
+
+Sample Input;:
+Array of elements = {16, 18, 27, 16, 23, 21, 19}
+Sample Output:
+Mean = 20
+Median = 19
+Mode = 16
+Test cases:
+1. Array of elements = {26, 28, 37, 26, 33, 31, 29}
+2. Array of elements = {1.6, 1.8, 2.7, 1.6, 2.3, 2.1, .19}
+3. Array of elements = {0, 160, 180, 270, 160, 230, 210, 190, 0}
+4. Array of elements = {200, 180, 180, 270, 160, 270, 270, 190, 200}
+5. Array of elements = {100, 100, 100, 100, 100, 100, 100, 100, 100}
+
+14.Write a program to find the number of composite numbers in an array of elements
+public class CompositeNumberCounter {
+    public static void main(String[] args) {
+        int[] numbers = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+        int compositeCount = countCompositeNumbers(numbers);
+
+        System.out.println("Number of composite numbers in the array: " + compositeCount);
+    }
+
+    public static int countCompositeNumbers(int[] numbers) {
+        int compositeCount = 0;
+        for (int num : numbers) {
+            if (isComposite(num)) {
+                compositeCount++;
+            }
+        }
+        return compositeCount;
+    }
+
+    public static boolean isComposite(int num) {
+        if (num <= 1) {
+            return false;  // Numbers less than or equal to 1 are not composite
+        }
+
+        for (int i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i == 0) {
+                return true;  // If the number is divisible by any number other than 1 and itself, it's composite
+            }
+        }
+
+        return false;
+    }
+}
+
+Sample Input;:
+Array of elements = {16, 18, 27, 16, 23, 21, 19}
+Sample Output:
+Number of Composite Numbers = 5 
+Test cases:
+1. Array of elements = {26, 28, 37, 26, 33, 31, 29}
+2. Array of elements = {1.6, 1.8, 2.7, 1.6, 2.3, 2.1, .19}
+3. Array of elements = {0, 160, 180, 270, 160, 230, 210, 190, 0}
+4. Array of elements = {200, 180, 180, 270, 270, 270, 190, 200}
+5. Array of elements = {100, 100, 100, 100, 100, 100, 100, 100}
+
+
+
+
+
+
+
+
+Patterns :
+
+15.Write a program to print Right Triangle Star Pattern
+Sample Input:: n = 5
+import java.util.Scanner;
+
+public class RightTriangleStarPattern {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of rows for the triangle: ");
+        int rows = scanner.nextInt();
+
+        printRightTriangle(rows);
+    }
+
+    public static void printRightTriangle(int rows) {
+        for (int i = 1; i <= rows; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+Output: 
+           * 
+         * * 
+       * * * 
+  * * * * 
+ * * * * *
+16.Write a program to print the below pattern?    
+import java.util.Scanner;
+
+public class PatternPrinting {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of rows for the pattern: ");
+        int rows = scanner.nextInt();
+
+        printPattern(rows);
+    }
+
+    public static void printPattern(int rows) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < rows - i - 1; j++) {
+                System.out.print("  "); // Print spaces for formatting
+            }
+
+            int num = 1;
+            for (int j = 0; j <= i; j++) {
+                System.out.print(num + "   ");
+                num = num * (i - j) / (j + 1); // Calculate the next number using Pascal's triangle logic
+            }
+
+            System.out.println(); // Move to the next line after each row
+        }
+    }
+}
+                            
+				1				
+			1		1			
+		1		2		1		
+	1		3		3		1	
+1		4		6		4		1
+
+17.Write a program to print rectangle symbol pattern.
+Get the symbol as input from user
+import java.util.Scanner;
+
+public class RectangleSymbolPattern {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the symbol for the pattern: ");
+        char symbol = scanner.nextLine().charAt(0);
+
+        System.out.print("Enter the number of rows for the rectangle: ");
+        int rows = scanner.nextInt();
+
+        System.out.print("Enter the number of columns for the rectangle: ");
+        int cols = scanner.nextInt();
+
+        printRectanglePattern(symbol, rows, cols);
+    }
+
+    public static void printRectanglePattern(char symbol, int rows, int cols) {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(symbol + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+18.Write a program to print the following pattern
+Sample Input:
+Enter the number to be printed: 1
+Max Number of time printed: 3
+1
+11
+111
+11
+1
+import java.util.Scanner;
+
+public class NumberPattern {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number to be printed: ");
+        int number = scanner.nextInt();
+
+        System.out.print("Max Number of times printed: ");
+        int maxTimes = scanner.nextInt();
+
+        printNumberPattern(number, maxTimes);
+    }
+
+    public static void printNumberPattern(int number, int maxTimes) {
+        // Print the pattern increasing
+        for (int i = 1; i <= maxTimes; i++) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(number);
+            }
+            System.out.println();
+        }
+
+        // Print the pattern decreasing
+        for (int i = maxTimes - 1; i >= 1; i--) {
+            for (int j = 0; j < i; j++) {
+                System.out.print(number);
+            }
+            System.out.println();
+        }
+    }
+}
+
+
+19.Write a program to print the Inverted Full Pyramid pattern?
+import java.util.Scanner;
+
+public class InvertedFullPyramid {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the number of rows for the inverted pyramid: ");
+        int rows = scanner.nextInt();
+
+        printInvertedPyramid(rows);
+    }
+
+    public static void printInvertedPyramid(int rows) {
+        for (int i = rows; i >= 1; i--) {
+            // Print spaces before the stars
+            for (int j = 1; j <= rows - i; j++) {
+                System.out.print("  ");
+            }
+
+            // Print stars for each row
+            for (int j = 1; j <= 2 * i - 1; j++) {
+                System.out.print("* ");
+            }
+
+            // Move to the next line after each row
+            System.out.println();
+        }
+    }
+}
+
+
+20.Write a program to print the following pattern
+Sample Input:
+Enter the Character to be printed: %
+Max Number of time printed: 3
+%
+% %
+% % %
+import java.util.Scanner;
+
+public class CharacterPattern {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the Character to be printed: ");
+        char character = scanner.nextLine().charAt(0);
+
+        System.out.print("Max Number of times printed: ");
+        int maxTimes = scanner.nextInt();
+
+        printCharacterPattern(character, maxTimes);
+    }
+
+    public static void printCharacterPattern(char character, int maxTimes) {
+        for (int i = 1; i <= maxTimes; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print(character + " ");
+            }
+            System.out.println();
+        }
+    }
+}
